@@ -55,8 +55,7 @@ public:
 	Value Get(SizeType index) const;
 	void Set(SizeType index, const Value& value);
 	void Set(SizeType index, Value&& value);
-	void Add(const Value& value);
-	void Add(Value&& value);
+	void Add(Value value);
 
 	Iterator Begin();
 	Iterator End();
@@ -64,7 +63,7 @@ public:
 	size_t GetLength() const;
 	bool Contains(const Value& value) const;
 
-	void Insert(SizeType index, const Value& value);
+	void Insert(SizeType index, Value value);
 	void Remove(SizeType index);
 	void Remove(Iterator it);
 

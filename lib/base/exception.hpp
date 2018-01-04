@@ -51,8 +51,8 @@ class user_error : virtual public std::exception, virtual public boost::exceptio
 class ScriptError : virtual public user_error
 {
 public:
-	ScriptError(const String& message);
-	ScriptError(const String& message, const DebugInfo& di, bool incompleteExpr = false);
+	ScriptError(String message);
+	ScriptError(String message, DebugInfo di, bool incompleteExpr = false);
 	~ScriptError() throw() override;
 
 	const char *what(void) const throw() final;

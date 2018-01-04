@@ -86,23 +86,11 @@ void Array::Set(SizeType index, Value&& value)
  *
  * @param value The value.
  */
-void Array::Add(const Value& value)
+void Array::Add(Value value)
 {
 	ObjectLock olock(this);
 
-	m_Data.push_back(value);
-}
-
-/**
- * Adds a value to the array.
- *
- * @param value The value.
- */
-void Array::Add(Value&& value)
-{
-	ObjectLock olock(this);
-
-	m_Data.emplace_back(std::move(value));
+	m_Data.push_back(std::move(value));
 }
 
 /**
@@ -164,13 +152,13 @@ bool Array::Contains(const Value& value) const
  * @param index The index
  * @param value The value to add
  */
-void Array::Insert(SizeType index, const Value& value)
+void Array::Insert(SizeType index, Value value)
 {
 	ObjectLock olock(this);
 
 	ASSERT(index <= m_Data.size());
 
-	m_Data.insert(m_Data.begin() + index, value);
+	m_Data.insert(m_Data.begin() + index, std::move(value));
 }
 
 /**
