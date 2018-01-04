@@ -372,7 +372,7 @@ void InfluxdbWriter::SendMetric(const Dictionary::Ptr& tmpl, const String& label
 #endif /* I2_DEBUG */
 
 	// Buffer the data point
-	m_DataBuffer.push_back(msgbuf.str());
+	m_DataBuffer.emplace_back(msgbuf.str());
 
 	// Flush if we've buffered too much to prevent excessive memory use
 	if (static_cast<int>(m_DataBuffer.size()) >= GetFlushThreshold()) {
@@ -422,7 +422,7 @@ void InfluxdbWriter::Flush()
 	url->SetPort(GetPort());
 
 	std::vector<String> path;
-	path.push_back("write");
+	path.emplace_back("write");
 	url->SetPath(path);
 
 	url->AddQueryElement("db", GetDatabase());
