@@ -37,10 +37,6 @@ using namespace icinga;
 REGISTER_TYPE(IdoMysqlConnection);
 REGISTER_STATSFUNCTION(IdoMysqlConnection, &IdoMysqlConnection::StatsFunc);
 
-IdoMysqlConnection::IdoMysqlConnection()
-	: m_QueryQueue(10000000)
-{ }
-
 void IdoMysqlConnection::OnConfigLoaded()
 {
 	ObjectImpl<IdoMysqlConnection>::OnConfigLoaded();
@@ -653,7 +649,7 @@ DbReference IdoMysqlConnection::GetLastInsertID()
 {
 	AssertOnWorkQueue();
 
-	return {m_Mysql->insert_id(&m_Connection)};
+	return {static_cast<long>(m_Mysql->insert_id(&m_Connection))};
 }
 
 int IdoMysqlConnection::GetAffectedRows()

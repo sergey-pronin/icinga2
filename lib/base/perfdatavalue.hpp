@@ -36,7 +36,7 @@ class PerfdataValue final : public ObjectImpl<PerfdataValue>
 public:
 	DECLARE_OBJECT(PerfdataValue);
 
-	PerfdataValue();
+	PerfdataValue() = default;
 
 	PerfdataValue(String label, double value, bool counter = false, const String& unit = "",
 		const Value& warn = Empty, const Value& crit = Empty,
