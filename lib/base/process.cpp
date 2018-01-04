@@ -506,22 +506,22 @@ void Process::InitializeSpawnHelper()
 
 static void InitializeProcess()
 {
-	for (auto& l_EventFD : l_EventFDs) {
+	for (auto& eventFD : l_EventFDs) {
 #ifdef _WIN32
-		l_Events[tid] = CreateEvent(nullptr, TRUE, FALSE, nullptr);
+		eventFD = CreateEvent(nullptr, TRUE, FALSE, nullptr);
 #else /* _WIN32 */
 #	ifdef HAVE_PIPE2
-		if (pipe2(l_EventFDs[tid], O_CLOEXEC) < 0) {
+		if (pipe2(eventFD, O_CLOEXEC) < 0) {
 			if (errno == ENOSYS) {
 #	endif /* HAVE_PIPE2 */
-				if (pipe(l_EventFD) < 0) {
+				if (pipe(eventFD) < 0) {
 					BOOST_THROW_EXCEPTION(posix_error()
 						<< boost::errinfo_api_function("pipe")
 						<< boost::errinfo_errno(errno));
 				}
 
-				Utility::SetCloExec(l_EventFD[0]);
-				Utility::SetCloExec(l_EventFD[1]);
+				Utility::SetCloExec(eventFD[0]);
+				Utility::SetCloExec(eventFD[1]);
 #	ifdef HAVE_PIPE2
 			} else {
 				BOOST_THROW_EXCEPTION(posix_error()
