@@ -357,7 +357,7 @@ void ElasticsearchWriter::Enqueue(String type, const Dictionary::Ptr& fields, do
 	 * We do it this way to avoid problems with a near full queue.
 	 */
 
-	String indexBody = "{ \"index\" : { \"_type\" : \"" + eventType + "\" } }\n";
+	String indexBody = R"({ "index" : { "_type" : ")" + eventType + "\" } }\n";
 	String fieldsBody = JsonEncode(fields);
 
 	Log(LogDebug, "ElasticsearchWriter")
